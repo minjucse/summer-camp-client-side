@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const Header = () => {
+  const { userInfo, signOutUser } = useContext(AuthContext);
+  const location = useLocation();
+
+  const handleLogOut = () => {
+    signOutUser()
+      .then()
+      .catch(error => console.log(error));
+  };
 
   const headerMenu = <>
     <li><Link to="/">Home</Link></li>
@@ -35,7 +44,16 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/sign-in" className="btn btn-outline btn-warning">Sign In</Link>
+         {userInfo ?
+            <button onClick={handleLogOut} type="button" className="btn btn-outline btn-warning">Sign Out </button>
+            :
+            <Link to="/sign-in" className="btn btn-outline btn-warning">Sign In</Link>
+          }
+          {
+            userInfo && <div className='user-profile tooltip tooltip-bottom' data-tip={userInfo.displayName}>
+              <img className='w-full rounded-full' src={userInfo.photoURL} alt="" />
+            </div>
+          }
         </div>
       </div>
     </div>
