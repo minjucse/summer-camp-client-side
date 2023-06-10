@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import service from '../../../hooks/useBaseServices';
 
 const SocialSignIn = () => {
     const { signInGoogle } = useContext(AuthContext);
@@ -12,7 +13,15 @@ const SocialSignIn = () => {
     const handleSignInGoogle = () => {
         signInGoogle()
             .then(result => {
-                const user = result.user;
+                const loggedInUser = result.user;
+                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
+               
+                service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err); 
+                })
                 navigate(from, { replace: true })
             }).catch(error => {
                 console.log('error', error.message);
