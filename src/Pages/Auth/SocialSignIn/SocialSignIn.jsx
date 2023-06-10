@@ -23,7 +23,7 @@ const SocialSignIn = () => {
         <div>
             <div className="flex  justify-center login-social">
                 <button className="btn btn-circle btn-outline" onClick={handleSignInGoogle}>
-                    <FcGoogle></FcGoogle>
+                    <FcGoogle/>
                 </button>
             </div>
         </div>

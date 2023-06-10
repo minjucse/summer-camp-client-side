@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../providers/AuthProvider';
 import SocialSignIn from '../SocialSignIn/SocialSignIn';
+import { AiFillEyeInvisible } from 'react-icons/ai';
+import { AiFillEye } from 'react-icons/ai';
 
 
 const SignIn = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { signInUser} = useContext(AuthContext);
+    const [passwordEye, setPasswordEye] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -33,6 +36,9 @@ const SignIn = () => {
             .catch(error => console.log(error));
     };
 
+    const handlePasswordClick =()=>{
+        setPasswordEye(!passwordEye);
+    }
     
 
     return (
@@ -56,12 +62,19 @@ const SignIn = () => {
                                     </label>
                                     <input type="text" {...register("email")} placeholder="email" className="input input-bordered" />
                                 </div>
-                                <div className="form-control">
+                                <div className="form-control relative">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input type="password" {...register("password")} name='password' placeholder="password" className="input input-bordered" />
-
+                                    <input type={(passwordEye === false) ? 'password': "text"} {...register("password")} name='password' placeholder="password" className="input input-bordered" />
+                                    {/* Eye Section */}
+                                    <div className='text-2xl absolute bottom-3 right-5'>
+                                        {
+                                            (passwordEye === false)? <AiFillEyeInvisible onClick={handlePasswordClick}/>: <AiFillEye onClick={handlePasswordClick}/>
+                                        }
+                                  
+                                   
+                                    </div>
                                 </div>
                                 <div className="form-control mt-6">
                                     <input className="btn btn-primary" type="submit" value="Sign In" />
