@@ -5,19 +5,35 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../providers/AuthProvider';
 import SocialSignIn from '../SocialSignIn/SocialSignIn';
+import service from '../../../hooks/useBaseServices';
 
 const SignUp = () => {
-  const { register, handleSubmit, reset,watch, formState: { errors } } = useForm();
+  const { register, handleSubmit,reset, watch, formState: { errors } } = useForm();
   const { createUser, updateUser } = useContext(AuthContext);
-  const [accepted, setAccepted] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = data => {
     createUser(data.email, data.password)
       .then(result => {
-        updateUser(data.name, data.photoURL).then(
-          navigate('/')
-        ).catch(error => {
+        updateUser(data.name, data.photo).then(() => {
+          const saveUser = { name: data.name, email: data.email }
+          service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'User created successfully.',
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/');
+            }
+          })
+          .catch(err => {
+              console.log(err); 
+          })
+        }).catch(error => {
           console.log(error);
         })
       })
@@ -25,7 +41,7 @@ const SignUp = () => {
         console.log(error);
       })
   }
-const password = watch('password');
+  const password = watch('password');
   return (
     <>
       <Helmet>
@@ -49,18 +65,19 @@ const password = watch('password');
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Image URL</span>
-                  </label>
-                  <input type="text"  {...register("photoURL", { required: true })} placeholder="Image URL" className="input input-bordered" />
-                  {errors.photoURL && <span className="text-red-600">Image URL is required</span>}
-                </div>
-                <div className="form-control">
-                  <label className="label">
                     <span className="label-text">Email</span>
                   </label>
                   <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
                   {errors.email && <span className="text-red-600">Email is required</span>}
                 </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Image URL</span>
+                  </label>
+                  <input type="text"  {...register("photo", { required: true })} placeholder="Image URL" className="input input-bordered" />
+                  {errors.photo && <span className="text-red-600">Image URL is required</span>}
+                </div>
+
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Password</span>
@@ -81,8 +98,10 @@ const password = watch('password');
                   <label className="label">
                     <span className="label-text">Confirm Password</span>
                   </label>
-                  <input type="password"  {...register("confirmPassword", { required: true,
-                    validate: (value) => value === password || "The Passwords do not match" })} placeholder="Confirm Password" className="input input-bordered" />
+                  <input type="password"  {...register("confirmPassword", {
+                    required: true,
+                    validate: (value) => value === password || "The Passwords do not match"
+                  })} placeholder="Confirm Password" className="input input-bordered" />
                   {errors.confirmPassword && <span className="text-red-600">The Passwords do not match</span>}
                 </div>
                 <div className="form-control mt-6">
@@ -90,7 +109,7 @@ const password = watch('password');
                 </div>
               </form>
               <div className="divider">Or</div>
-              <SocialSignIn/>
+              <SocialSignIn />
               <p className='my-4 text-center'>Already Have an Account? <Link className='text-orange-600 font-bold' to="/sign-in">Sign In</Link> </p>
             </div>
           </div>

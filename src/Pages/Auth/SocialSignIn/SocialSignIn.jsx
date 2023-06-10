@@ -17,7 +17,6 @@ const SocialSignIn = () => {
                 const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
                
                 service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
-                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err); 
