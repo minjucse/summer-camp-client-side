@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.logo-area img{
+    height: 40px;
+    width: 40px;
+}
+
 .user-profile {
     height: 50px;
     width: 50px;

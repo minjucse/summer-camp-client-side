@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
+import SectionLogo from '../../../Components/SectionLogo';
 
 const Header = () => {
   const { userInfo, signOutUser } = useContext(AuthContext);
@@ -13,10 +14,14 @@ const Header = () => {
   };
 
   const headerMenu = <>
-    <li><Link to="/">Home</Link></li>
-    <li><Link to="/instructors">Instructors</Link></li>
-    <li><Link to="/classes">Classes</Link></li>
-    <li><Link to="/dashboard/userhome">Dashboard</Link></li>
+    <li><Link className={location.pathname === '/' ? 'bg-base-200' : ''} to="/">Home</Link></li>
+    <li><Link className={location.pathname === '/instructors' ? 'bg-base-200' : ''} to="/instructors">Instructors</Link></li>
+    <li><Link className={location.pathname === '/classes' ? 'bg-base-200' : ''} to="/classes">Classes</Link></li>
+    
+    {
+      userInfo &&
+       <li><Link className={location.pathname === '/dashboard/userhome' ? 'bg-base-200' : ''} to="/dashboard/userhome">Dashboard</Link></li>
+    }
   </>
   return (
     <div>
@@ -30,13 +35,7 @@ const Header = () => {
               {headerMenu}
             </ul>
           </div>
-          <Link to="/" className='flex items-center'>
-            <img src="" alt="" />
-            <h3 className='ml-2'>
-              Drawing
-              <span>School</span>
-            </h3>
-          </Link>
+          <SectionLogo/>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -44,7 +43,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-         {userInfo ?
+          {userInfo ?
             <button onClick={handleLogOut} type="button" className="btn btn-outline btn-warning">Sign Out </button>
             :
             <Link to="/sign-in" className="btn btn-outline btn-warning">Sign In</Link>
