@@ -7,6 +7,7 @@ import SignUp from '../Pages/Auth/SignUp/SignUp';
 import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import Dashboard from '../Layout/Dashboard';
 import AdminDashboard from '../Pages/Dashboard/AdminDashboard/AdminDashboard';
+import AllUsers from '../Pages/Dashboard/AdminDashboard/AllUsers/AllUsers';
 
 export const Routes = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ export const Routes = createBrowserRouter([
         {
           path: 'admin',
           element: <AdminDashboard/>,
+        },
+        {
+          path: 'all-users',
+          element: <AllUsers/>,
         }
   
       ]

@@ -9,10 +9,14 @@ const userCreate = (subUrl, data) => {
     return axios.post(url, data, { headers: headers });
 };
 
-
+  const userUpdate = (subUrl,  data) => {
+    let url = BASE_URL + subUrl;
+    return axios.patch(url, data, { headers: headers });
+  };
 
 export default {
     userCreate,
+    userUpdate,
     BASE_URL
 }
 
