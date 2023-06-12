@@ -1,20 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import Container from '../../Components/Container'
 import service from '../../hooks/useBaseServices';
 import { Helmet } from 'react-helmet-async';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const AllClasses = () => {
+  const { userInfo } = useContext(AuthContext);
   const [allClasses, setAllClasses] = useState([]);
 
+
   useEffect(() => {
-    service.getAll("all-users").then(res => {
+    service.getAll("all-classes").then(res => {
       setAllClasses(res.data);
     })
       .catch(err => {
         console.log(err);
       })
   }, []);
+
+  const handleSubmitItem = (data) => {
+    service.userCreate("add-select-class", data).then(res => {
+      if (res.data.insertedId) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: `Success Add Your Select Class!`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Helmet>
@@ -33,42 +54,33 @@ const AllClasses = () => {
       <div className='mb-20 mt-20'>
         <Container>
           <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-            {/* {
+            {
               allClasses?.map((item, index) => (
                 <div key={index}>
-                  <div className="team-block">
-                    <div className='image-box'>
-                      <div className='image'>
-                        <img src={item.imageURL} alt="" />
+                  <div className="card w-96 bg-base-100 shadow-xl">
+                    <figure><img src={item.classImage} alt="Shoes" /></figure>
+                    <div className="card-body">
+                      <h2 className="card-title">
+                        Name: {item.name}!
+                      </h2>
+                      <p>Instructor Name: {item.createdName}</p>
+                      <p>Available Seats: {item.quantity}</p>
+                      <p>Price: {item.price}</p>
+                      <div className="card-actions justify-end">
+                        {userInfo ?
+                          <button onClick={() => handleSubmitItem(item)} type="button" className="btn btn-sm btn-outline btn-warning">Select </button>
+                          :
+                          <div className="badge badge-outline">Select</div>
+                        }
                       </div>
-                    </div>
-                    <div className="lower">
-                      <h4><a href="team.html"> {item.name}</a></h4>
-                      <div className="designation">{item.email}</div>
-
                     </div>
                   </div>
                 </div>
 
               ))
-            } */}
+            }
             <div>
-              <div className="card w-96 bg-base-100 shadow-xl">
-                <figure><img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
-                <div className="card-body">
-                  <h2 className="card-title">
-                    Name: Shoes!
-                    <div className="badge badge-secondary">NEW</div>
-                  </h2>
-                  <p>Instructor Name: </p>
-                  <p>Available Seats: </p>
-                  <p>Price: </p>
-                  <div className="card-actions justify-end">
-                   
-                    <div className="badge badge-outline">Select</div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </Container>

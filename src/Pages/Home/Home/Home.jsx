@@ -7,7 +7,11 @@ const Home = () => {
       <Helmet>
         <title>AM Drawing School | Home</title>
       </Helmet>
-      <Banner />
+
+      <div className='flex flex-col justify-center items-center'>
+        <Banner />
+
+      </div>
     </>
   )
 }

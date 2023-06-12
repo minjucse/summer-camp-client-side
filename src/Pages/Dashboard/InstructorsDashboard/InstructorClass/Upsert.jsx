@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
 import service from '../../../../hooks/useBaseServices';
+import { AuthContext } from '../../../../providers/AuthProvider';
 
 const Upsert = () => {
     const { userInfo } = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        service.userCreate("/api/add-class", data).then(res => {
+        service.userCreate("add-class", data).then(res => {
             if (res.data.insertedId) {
                 reset();
                 Swal.fire({

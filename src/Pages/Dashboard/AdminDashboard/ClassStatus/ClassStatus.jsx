@@ -7,10 +7,10 @@ import useAxiosService from "../../../../hooks/useAxiosService";
 
 const ClassStatus = () => {
     const [axiosService] = useAxiosService();
+    
     const { data: classStatus = [], refetch } = useQuery(['classStatus'], async () => {
         const res = await axiosService.get('/api/class-list')
         return res.data;
-
     })
 
     const handleChangeStatus = (_id, feedback, status) => {
@@ -20,7 +20,7 @@ const ClassStatus = () => {
             status: status
         };
 
-        service.userUpdate("/api/class-update", data).then(res => {
+        service.userUpdate("class-update", data).then(res => {
 
             if (res.data.modifiedCount) {
                 refetch();
@@ -100,21 +100,21 @@ const ClassStatus = () => {
                                                 <button className="btn btn-disabled mr-2">Approve</button>
                                                 <button className="btn  btn-disabled ml-2">Deny </button>
                                             </> :
-                                            <button onClick={() => handleChangeStatus(item, 'admin')} className="btn btn-ghost bg-orange-600  text-white">Approve</button>
+                                            <button onClick={() => handleChangeStatus(item, 'approved')} className="btn btn-ghost bg-orange-600  text-whiteml-2 ">Approve</button>
                                         }
-                                        {item.status === 'instructor' ?
+                                        {item.status === 'deny' ?
                                             <>
                                                 <button className="btn btn-disabled mr-2">Approve</button>
                                                 <button className="btn  btn-disabled ml-2">Deny </button>
                                             </> :
-                                            <button onClick={() => handleChangeStatus(item, 'instructor')} className="btn btn-ghost bg-sky-600 text-white mr-2">Deny </button>
+                                            <button onClick={() => handleChangeStatus(item, 'deny')} className="btn btn-ghost bg-sky-600 text-white ml-2">Deny </button>
                                         }
 
                                     </td>
                                 </tr>
                             ))}
 
-
+                            
                         </tbody>
                     </table>
                 </div>

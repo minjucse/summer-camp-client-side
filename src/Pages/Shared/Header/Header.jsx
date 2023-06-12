@@ -3,9 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
 import SectionLogo from '../../../Components/SectionLogo';
 import useAdmin from "../../../hooks/useAdmin";
+import useInstructor from "../../../hooks/useInstructor";
 
 const Header = () => {
   const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
   const { userInfo, signOutUser } = useContext(AuthContext);
   const location = useLocation();
 
@@ -23,6 +25,10 @@ const Header = () => {
       isAdmin ?
         <li>
           <Link className={location.pathname === '/dashboard/admin-home' ? 'bg-base-200' : ''} to="/dashboard/admin-home">Dashboard</Link>
+        </li> :
+        isInstructor ?
+        <li>
+          <Link className={location.pathname === '/dashboard/instructor-home' ? 'bg-base-200' : ''} to="/dashboard/instructor-home">Dashboard</Link>
         </li> :
         userInfo&& <li><Link to="/dashboard/userhome">Dashboard</Link></li>
     }
