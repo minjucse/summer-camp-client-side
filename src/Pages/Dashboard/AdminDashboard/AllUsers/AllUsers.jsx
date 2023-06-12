@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import {  FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
 import service from '../../../../hooks/useBaseServices';
 import useAxiosService from "../../../../hooks/useAxiosService";
@@ -11,15 +10,15 @@ const AllUsers = () => {
     const { data: users = [], refetch } = useQuery(['users'], async () => {
         const res = await axiosService.get('/api/users')
         return res.data;
-        
+
     })
 
-    const handleMakeAdmin =(user, role)  => {
+    const handleMakeAdmin = (user, role) => {
         let data = {
             id: user._id,
             role: role,
         };
-        service.userUpdate("user/roleset", data).then( res =>{
+        service.userUpdate("user/roleset", data).then(res => {
 
             if (res.data.modifiedCount) {
                 refetch();
@@ -31,10 +30,10 @@ const AllUsers = () => {
                     timer: 1500
                 })
             }
-       })
-       .catch(err => {
-           console.log(err); 
-       });
+        })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     return (
@@ -42,7 +41,7 @@ const AllUsers = () => {
             <Helmet>
                 <title>AM Drawing School | All users</title>
             </Helmet>
-            <h2 className='text-center text-3xl'>All Users </h2>
+            <h2 className='text-center text-3xl'>All Users:- {users.length} </h2>
 
             <div className="card-body">
                 <div className="overflow-x-auto w-full">
@@ -57,8 +56,8 @@ const AllUsers = () => {
                                 </th>
                                 <th>User Name</th>
                                 <th>User Email</th>
-                                <th className='text-center'>Role Admin</th>
-                                <th className='text-center'>Role Instructor</th>
+                                <th className='text-center'>Current Role </th>
+                                <th className='text-center'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,14 +74,16 @@ const AllUsers = () => {
                                     </td>
                                     <td> {item.email}</td>
                                     <td className='text-center'>
-                                        {item.role === 'admin' ? 'Admin' :
-                                            <button onClick={() => handleMakeAdmin(item,'admin')} className="btn btn-ghost bg-orange-600  text-white"><FaUserShield></FaUserShield></button>
-                                        }
+                                        {item.role}
                                     </td>
                                     <td className='text-center'>
-                                        {item.role === 'instructor' ? 'Instructor' :
-                                            <button onClick={() => handleMakeAdmin(item,'instructor')} className="btn btn-ghost bg-sky-600 text-white"><FaUserShield></FaUserShield></button>
+                                        {item.role === 'admin' ? <button  className="btn btn-disabled mr-2">Make Admin</button> :
+                                            <button onClick={() => handleMakeAdmin(item, 'admin')} className="btn btn-ghost bg-orange-600  text-white">Make Admin</button>
                                         }
+                                        {item.role === 'instructor' ? <button  className="btn  btn-disabled ml-2">Make Instructor</button> :
+                                            <button onClick={() => handleMakeAdmin(item, 'instructor')} className="btn btn-ghost bg-sky-600 text-white mr-2">Make Instructor</button>
+                                        }
+
                                     </td>
                                 </tr>
                             ))}

@@ -10,6 +10,7 @@ import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import Dashboard from '../Layout/Dashboard';
 import AdminDashboard from '../Pages/Dashboard/AdminDashboard/AdminDashboard';
 import AllUsers from '../Pages/Dashboard/AdminDashboard/AllUsers/AllUsers';
+import ClassStatus from '../Pages/Dashboard/AdminDashboard/ClassStatus/ClassStatus';
 
 export const Routes = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ export const Routes = createBrowserRouter([
         {
           path: 'admin-home',
           element: <AdminRoute><AdminDashboard/></AdminRoute>,
+        },
+        {
+          path: 'class-status',
+          element: <AdminRoute><ClassStatus/></AdminRoute>,
         },
         {
           path: 'all-users',
