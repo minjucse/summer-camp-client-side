@@ -43,7 +43,7 @@ const SignIn = () => {
     return (
         <>
             <Helmet>
-                <title>Site Name | Sign In</title>
+                <title>AM Drawing School | Sign In</title>
             </Helmet>
 
             <div className="hero min-h-screen bg-base-200">

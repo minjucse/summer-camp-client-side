@@ -11,6 +11,8 @@ import Dashboard from '../Layout/Dashboard';
 import AdminDashboard from '../Pages/Dashboard/AdminDashboard/AdminDashboard';
 import AllUsers from '../Pages/Dashboard/AdminDashboard/AllUsers/AllUsers';
 import ClassStatus from '../Pages/Dashboard/AdminDashboard/ClassStatus/ClassStatus';
+import Instructors from '../Pages/Instructors/Instructors';
+import AllClasses from '../Pages/AllClasses/AllClasses';
 
 export const Routes = createBrowserRouter([
     {
@@ -29,6 +31,13 @@ export const Routes = createBrowserRouter([
         {
           path: '/sign-up',
           element: <SignUp/>
+        },
+        {
+          path: '/instructors',
+          element: <Instructors/>
+        }, {
+          path: '/classes',
+          element: <AllClasses/>
         },
   
       ]

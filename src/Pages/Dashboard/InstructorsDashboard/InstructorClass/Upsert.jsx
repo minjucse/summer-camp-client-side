@@ -44,12 +44,14 @@ const Upsert = () => {
                             </label>
                             <input type="text"    {...register("name", { required: true })}
                                 placeholder="name" className="input input-bordered" autoComplete='off' />
+                                  {errors.name && <span className="text-red-600">Name is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Image URL</span>
                             </label>
                             <input type="text" {...register("classImage", { required: true })} placeholder="Image URL" className="input input-bordered" autoComplete='off' />
+                            {errors.classImage && <span className="text-red-600">Image URL is required</span>}
                         </div>
 
                         <div className="form-control">
@@ -57,12 +59,14 @@ const Upsert = () => {
                                 <span className="label-text">Available Seats</span>
                             </label>
                             <input type="number" {...register("quantity")} placeholder="Available Seats" className="input input-bordered" autoComplete='off' />
+                            {errors.quantity && <span className="text-red-600">Available Seats is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
                             <input type="number" {...register("price")} placeholder="price" className="input input-bordered" autoComplete='off' />
+                            {errors.price && <span className="text-red-600">Available Seats is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">

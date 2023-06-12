@@ -14,7 +14,7 @@ const SocialSignIn = () => {
         signInGoogle()
             .then(result => {
                 const loggedInUser = result.user;
-                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
+                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email, imageURL: loggedInUser.photoURL }
                
                 service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
                 })

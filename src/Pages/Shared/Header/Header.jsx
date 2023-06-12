@@ -24,7 +24,7 @@ const Header = () => {
         <li>
           <Link className={location.pathname === '/dashboard/admin-home' ? 'bg-base-200' : ''} to="/dashboard/admin-home">Dashboard</Link>
         </li> :
-        <li><Link to="/dashboard/userhome">Dashboard</Link></li>
+        userInfo&& <li><Link to="/dashboard/userhome">Dashboard</Link></li>
     }
   </>
   return (

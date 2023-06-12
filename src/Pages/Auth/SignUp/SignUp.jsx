@@ -15,8 +15,9 @@ const SignUp = () => {
   const handleSignUp = data => {
     createUser(data.email, data.password)
       .then(result => {
+
         updateUser(data.name, data.photo).then(() => {
-          const saveUser = { name: data.name, email: data.email }
+          const saveUser = { name: data.name, email: data.email, imageURL: data.photo}
           service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
             if (res.data.insertedId) {
               reset();
@@ -45,7 +46,7 @@ const SignUp = () => {
   return (
     <>
       <Helmet>
-        <title>Site Name | Sign Up</title>
+        <title>AM Drawing School | Sign Up</title>
       </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row">

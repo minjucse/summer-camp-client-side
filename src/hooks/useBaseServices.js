@@ -13,10 +13,15 @@ const userCreate = (subUrl, data) => {
     let url = BASE_URL + subUrl;
     return axios.patch(url, data, { headers: headers });
   };
+  const getAll  = (subUrl) => {
+    let url = BASE_URL + subUrl;
+    return axios.get(url, { headers: headers });
+  };
 
 export default {
     userCreate,
     userUpdate,
+    getAll,
     BASE_URL
 }
 
