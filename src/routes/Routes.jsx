@@ -1,5 +1,7 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 import Home from '../Pages/Home/Home/Home';
 import Main from '../Layout/Main';
 import SignIn from '../Pages/Auth/SignIn/SignIn';
@@ -32,16 +34,16 @@ export const Routes = createBrowserRouter([
     },
     {
       path: "dashboard",
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       errorElement: <PageNotFound/>,
       children: [
         {
-          path: 'admin',
-          element: <AdminDashboard/>,
+          path: 'admin-home',
+          element: <AdminRoute><AdminDashboard/></AdminRoute>,
         },
         {
           path: 'all-users',
-          element: <AllUsers/>,
+          element: <AdminRoute><AllUsers/></AdminRoute>,
         }
   
       ]

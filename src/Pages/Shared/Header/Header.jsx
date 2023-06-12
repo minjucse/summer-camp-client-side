@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider';
 import SectionLogo from '../../../Components/SectionLogo';
+import useAdmin from "../../../hooks/useAdmin";
 
 const Header = () => {
+  const [isAdmin] = useAdmin();
   const { userInfo, signOutUser } = useContext(AuthContext);
   const location = useLocation();
 
@@ -17,10 +19,12 @@ const Header = () => {
     <li><Link className={location.pathname === '/' ? 'bg-base-200' : ''} to="/">Home</Link></li>
     <li><Link className={location.pathname === '/instructors' ? 'bg-base-200' : ''} to="/instructors">Instructors</Link></li>
     <li><Link className={location.pathname === '/classes' ? 'bg-base-200' : ''} to="/classes">Classes</Link></li>
-    
     {
-      userInfo &&
-       <li><Link className={location.pathname === '/dashboard/userhome' ? 'bg-base-200' : ''} to="/dashboard/userhome">Dashboard</Link></li>
+      isAdmin ?
+        <li>
+          <Link className={location.pathname === '/dashboard/admin-home' ? 'bg-base-200' : ''} to="/dashboard/admin-home">Dashboard</Link>
+        </li> :
+        <li><Link to="/dashboard/userhome">Dashboard</Link></li>
     }
   </>
   return (
@@ -35,7 +39,7 @@ const Header = () => {
               {headerMenu}
             </ul>
           </div>
-          <SectionLogo/>
+          <SectionLogo />
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
