@@ -1,8 +1,6 @@
 import React from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import Swal from "sweetalert2";
-import service from '../../../../hooks/useBaseServices';
 import useAxiosService from "../../../../hooks/useAxiosService";
 
 const ClassStatus = () => {
@@ -13,29 +11,7 @@ const ClassStatus = () => {
         return res.data;
     })
 
-    const handleChangeStatus = (_id, feedback, status) => {
-        let data = {
-            id: _id,
-            feedback: feedback,
-            status: status
-        };
-
-        service.userUpdate("class-update", data).then(res => {
-            if (res.data.modifiedCount) {
-                refetch();
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: `${user.name} is an Admin Now!`,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-        })
-            .catch(err => {
-                console.log(err);
-            });
-    }
+   
     return (
         <div className='card shadow-xl bg-base-100'>
             <Helmet>

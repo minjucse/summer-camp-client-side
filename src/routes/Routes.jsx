@@ -20,6 +20,7 @@ import InstructorsDashboard from '../Pages/Dashboard/InstructorsDashboard/Instru
 import ClassAdd from '../Pages/Dashboard/InstructorsDashboard/InstructorClass/Upsert';
 import ClassLists from '../Pages/Dashboard/InstructorsDashboard/InstructorClass/List';
 import InstructorRoute from './InstructorRoute';
+import StatusUpdate from '../Pages/Dashboard/AdminDashboard/ClassStatus/StatusUpdate';
 
 export const Routes = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ export const Routes = createBrowserRouter([
         {
           path: 'class-status',
           element: <AdminRoute><ClassStatus/></AdminRoute>,
+        },
+        {
+          path: 'update-status',
+          element: <AdminRoute><StatusUpdate/></AdminRoute>,
         },
         {
           path: 'all-users',

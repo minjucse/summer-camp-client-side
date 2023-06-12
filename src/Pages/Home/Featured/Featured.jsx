@@ -69,9 +69,6 @@ const Featured = () => {
                                 </div>
                             </div>
                         </div>
-                        <div>
-
-                        </div>
                     </div>
                 </Container>
             </div>
