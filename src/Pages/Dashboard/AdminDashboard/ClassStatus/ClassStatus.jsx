@@ -7,7 +7,7 @@ import useAxiosService from "../../../../hooks/useAxiosService";
 
 const ClassStatus = () => {
     const [axiosService] = useAxiosService();
-    
+
     const { data: classStatus = [], refetch } = useQuery(['classStatus'], async () => {
         const res = await axiosService.get('/api/class-list')
         return res.data;
@@ -21,7 +21,6 @@ const ClassStatus = () => {
         };
 
         service.userUpdate("class-update", data).then(res => {
-
             if (res.data.modifiedCount) {
                 refetch();
                 Swal.fire({

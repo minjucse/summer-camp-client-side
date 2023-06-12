@@ -94,3 +94,18 @@
 .designation{
   color: #808080;
 }
+.icon-box {
+  position: relative;
+    display: flex;
+    width: 80px;
+    height: 80px;
+    background: #FF8F1F;
+    color: #ffffff;
+    text-align: center;
+    line-height: 80px;
+    font-size: 32px;
+    border-radius: 50%;
+    transition: all 700ms ease;
+    align-items: center;
+    justify-content: center;
+}
