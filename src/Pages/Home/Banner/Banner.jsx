@@ -5,11 +5,11 @@ const Banner = () => {
     return (
         <div className="carousel md:w-[80%] lg:w-[80%] xs:w-[85%] h-[550px] mx-auto">
             <div id="slide1" className="carousel-item relative w-full">
-                <img src="https://images.unsplash.com/photo-1530325553241-4f6e7690cf36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" className="w-full" />
+                <img src="https://plus.unsplash.com/premium_photo-1673514503608-a9e6c3f5af0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" className="w-full" />
                 <div className="absolute  flex items-center justify-center h-full left-0 top-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)]">
                     <div className='text-white space-y-7 pl-12 w-1/2'>
                         <p></p>
-                        <h2 className='text-3xl font-bold'>Affordable Price For Toy</h2>
+                        <h2 className='text-3xl font-bold'>Affordable Price</h2>
                         <p>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
                         <div>
                             <button className="btn btn-outline btn-warning">  READ MORE</button>
@@ -22,11 +22,11 @@ const Banner = () => {
                 </div>
             </div>
             <div id="slide2" className="carousel-item relative w-full">
-                <img src="https://images.unsplash.com/photo-1633007400080-f37dfabbf2e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" className="w-full" />
+                <img src="https://images.unsplash.com/photo-1613823609500-4dc73513d3c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1173&q=80" className="w-full" />
                 <div className="absolute rounded-xl flex items-center justify-center h-full left-0 top-0 bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)]">
                     <div className='text-white space-y-7 pl-12 w-1/2'>
                         <p></p>
-                        <h2 className='text-3xl font-bold'>Affordable Price For Toy</h2>
+                        <h2 className='text-3xl font-bold'>Affordable Price </h2>
                         <p>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
                         <div>
                             <button className="btn btn-outline btn-warning">  READ MORE</button>
