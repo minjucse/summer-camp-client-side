@@ -30,7 +30,12 @@ const AllClasses = () => {
       const saveData = {
         studentEmail: userInfo.email,
         classId: data._id,
-        instructorEmail: data.createdBy
+        instructorEmail: data.createdBy,
+        name: data.name,
+        classImage: data.classImage,
+        quantity: data.quantity,
+        price: data.price,
+        instructorName: data.createdName
       }
 
     if (!useStudent) {
@@ -91,12 +96,12 @@ const AllClasses = () => {
                       </h2>
                       <p>Instructor Name: {item.createdName}</p>
                       <p>Available Seats:
-                        {item.quantity != 0 ? <div className="badge badge-accent ml-2">
+                        {item.quantity != 0 ? <span className="badge badge-accent ml-2">
                           {item.quantity}
-                        </div> :
-                          <div className="badge badge-error">
+                        </span> :
+                          <span className="badge badge-error">
                             {item.quantity}
-                          </div>
+                          </span>
                         }
 
                       </p>

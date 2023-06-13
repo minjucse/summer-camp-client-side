@@ -10,6 +10,9 @@ const Upsert = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
+        data.feedback= "";
+        data.totalEnrolled =0;
+        
         service.userCreate("add-class", data).then(res => {
             if (res.data.insertedId) {
                 reset();

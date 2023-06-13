@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import useAxiosService from "../../../../hooks/useAxiosService";
+import { FiEdit } from 'react-icons/fi';
 
 const List = () => {
     const [axiosService] = useAxiosService();
@@ -11,8 +12,8 @@ const List = () => {
 
     })
 
-  return (
-    <div className='card shadow-xl bg-base-100'>
+    return (
+        <div className='card shadow-xl bg-base-100'>
             <Helmet>
                 <title>AM Drawing School | Class List</title>
             </Helmet>
@@ -30,13 +31,15 @@ const List = () => {
                                     </label>
                                 </th>
                                 <th>Image</th>
-                                <th>Class Name</th>
+                                <th> Name</th>
                                 <th>Instructor Name</th>
                                 <th>Instructor Email</th>
                                 <th>Available Seats</th>
                                 <th>Price</th>
                                 <th>Feedback</th>
                                 <th>Current Status </th>
+                                <th>Total Enrolled</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +70,14 @@ const List = () => {
                                     <td className='text-center'>
                                         {item.status}
                                     </td>
-                                    
+                                    <td className='text-center'>
+                                        {item.totalEnrolled}
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-square  btn-warning btn-sm mr-2">
+                                            <FiEdit></FiEdit>
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
 
@@ -77,7 +87,7 @@ const List = () => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default List
