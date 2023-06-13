@@ -7,7 +7,7 @@ const PopularInstructors = () => {
   const [popularInstructors, setPopularInstructors] = useState([]);
 
   useEffect(() => {
-    service.getAll("all-classes").then(res => {
+    service.getAll("all-users").then(res => {
       setPopularInstructors(res.data);
     })
       .catch(err => {
