@@ -2,6 +2,8 @@ import React from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import useAxiosService from "../../../../hooks/useAxiosService";
+import Swal from "sweetalert2";
+import service from '../../../../hooks/useBaseServices';
 
 const ClassStatus = () => {
     const [axiosService] = useAxiosService();
@@ -11,7 +13,31 @@ const ClassStatus = () => {
         return res.data;
     })
 
-   
+    const handleChangeStatus = (item, status) => {
+        let data = {
+            id: item._id,
+            feedback: "feedback",
+            status: status
+        };
+
+        service.userUpdate("class-update", data).then(res => {
+            if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `${status} is an Updated Now!`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+
     return (
         <div className='card shadow-xl bg-base-100'>
             <Helmet>
@@ -72,24 +98,27 @@ const ClassStatus = () => {
                                     <td className='text-center'>
                                         {item.status === 'approved' ?
                                             <>
-                                                <button className="btn btn-disabled mr-2">Approve</button>
-                                                <button className="btn  btn-disabled ml-2">Deny </button>
+                                                <button className="btn btn-disabled btn-sm mr-2">Approve</button>
+                                                <button className="btn  btn-disabled btn-sm ml-2">Deny </button>
                                             </> :
-                                            <button onClick={() => handleChangeStatus(item, 'approved')} className="btn btn-ghost bg-orange-600  text-whiteml-2 ">Approve</button>
-                                        }
-                                        {item.status === 'deny' ?
-                                            <>
-                                                <button className="btn btn-disabled mr-2">Approve</button>
-                                                <button className="btn  btn-disabled ml-2">Deny </button>
-                                            </> :
-                                            <button onClick={() => handleChangeStatus(item, 'deny')} className="btn btn-ghost bg-sky-600 text-white ml-2">Deny </button>
+
+                                            item.status === 'denied' ?
+                                                <>
+                                                    <button className="btn btn-disabled btn-sm mr-2">Approve</button>
+                                                    <button className="btn  btn-disabled btn-sm ml-2">Deny </button>
+                                                </> :
+                                                <> <button onClick={() => handleChangeStatus(item, 'approved')} className="btn btn-ghost bg-orange-600  text-whiteml-2 btn-sm ">Approve</button>
+
+                                                    <button onClick={() => handleChangeStatus(item, 'deny')} className="btn btn-sm btn-ghost bg-sky-600 text-white ml-2">Deny </button>
+                                                    <button onClick={() => handleChangeStatus(item, 'denied')} className="btn btn-sm  btn-ghost bg-sky-600 text-white ml-2">Send feedback </button>
+                                                </>
                                         }
 
                                     </td>
                                 </tr>
                             ))}
 
-                            
+
                         </tbody>
                     </table>
                 </div>

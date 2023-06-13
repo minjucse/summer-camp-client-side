@@ -18,6 +18,7 @@ const SignUp = () => {
 
         updateUser(data.name, data.photo).then(() => {
           const saveUser = { name: data.name, email: data.email, imageURL: data.photo}
+          
           service.userCreate("add-user", JSON.stringify(saveUser)).then(res => {
             if (res.data.insertedId) {
               reset();

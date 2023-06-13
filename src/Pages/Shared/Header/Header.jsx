@@ -4,12 +4,15 @@ import { AuthContext } from '../../../providers/AuthProvider';
 import SectionLogo from '../../../Components/SectionLogo';
 import useAdmin from "../../../hooks/useAdmin";
 import useInstructor from "../../../hooks/useInstructor";
+import useStudents from "../../../hooks/useStudent";
 
 const Header = () => {
   const [isAdmin] = useAdmin();
   const [isInstructor] = useInstructor();
+  const [useStudent] = useStudents();
   const { userInfo, signOutUser } = useContext(AuthContext);
   const location = useLocation();
+
 
   const handleLogOut = () => {
     signOutUser()
@@ -30,7 +33,7 @@ const Header = () => {
         <li>
           <Link className={location.pathname === '/dashboard/instructor-home' ? 'bg-base-200' : ''} to="/dashboard/instructor-home">Dashboard</Link>
         </li> :
-        userInfo&& <li><Link to="/dashboard/userhome">Dashboard</Link></li>
+        useStudent && <li><Link to="/dashboard/student-home">Dashboard</Link></li>
     }
   </>
   return (

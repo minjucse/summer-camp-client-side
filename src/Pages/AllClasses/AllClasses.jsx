@@ -3,12 +3,19 @@ import { Link } from 'react-router-dom';
 import Container from '../../Components/Container'
 import service from '../../hooks/useBaseServices';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
+import useStudents from "../../hooks/useStudent";
+import useAdmin from "../../hooks/useAdmin";
+import useInstructor from "../../hooks/useInstructor";
 import { AuthContext } from '../../providers/AuthProvider';
 
 const AllClasses = () => {
   const { userInfo } = useContext(AuthContext);
-  const [allClasses, setAllClasses] = useState([]);
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
 
+  const [allClasses, setAllClasses] = useState([]);
+  const [useStudent] = useStudents();
 
   useEffect(() => {
     service.getAll("all-classes").then(res => {
@@ -20,20 +27,39 @@ const AllClasses = () => {
   }, []);
 
   const handleSubmitItem = (data) => {
-    service.userCreate("add-select-class", data).then(res => {
-      if (res.data.insertedId) {
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: `Success Add Your Select Class!`,
-          showConfirmButton: false,
-          timer: 1500
-        })
+      const saveData = {
+        studentEmail: userInfo.email,
+        classId: data._id,
+        instructorEmail: data.createdBy
       }
-    })
-      .catch(err => {
-        console.log(err);
-      });
+
+    if (!useStudent) {
+      Swal.fire('Please Sign In And Select Class')
+    }
+    else {
+      service.userCreate("add-select-class", saveData).then(res => {
+        
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `Success Add Your Select Class!`,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+        else{
+          let message ={};
+          message = res.data.message;
+
+          Swal.fire(`${message}`);
+        }
+
+      })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 
   return (
@@ -64,13 +90,24 @@ const AllClasses = () => {
                         Name: {item.name}!
                       </h2>
                       <p>Instructor Name: {item.createdName}</p>
-                      <p>Available Seats: {item.quantity}</p>
+                      <p>Available Seats:
+                        {item.quantity != 0 ? <div className="badge badge-accent ml-2">
+                          {item.quantity}
+                        </div> :
+                          <div className="badge badge-error">
+                            {item.quantity}
+                          </div>
+                        }
+
+                      </p>
                       <p>Price: {item.price}</p>
                       <div className="card-actions justify-end">
-                        {userInfo ?
+                        {useStudent && item.quantity != 0 ?
                           <button onClick={() => handleSubmitItem(item)} type="button" className="btn btn-sm btn-outline btn-warning">Select </button>
-                          :
-                          <div className="badge badge-outline">Select</div>
+                          : isAdmin || isInstructor ?
+                            <button onClick={() => handleSubmitItem(item)} type="button" className="btn btn-sm btn-disabled">Select </button>
+                            :
+                            <button onClick={() => handleSubmitItem(item)} type="button" className="btn btn-sm btn-outline btn-warning">Select </button>
                         }
                       </div>
                     </div>
