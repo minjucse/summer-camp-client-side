@@ -10,7 +10,7 @@ import { AiFillEye } from 'react-icons/ai';
 
 
 const SignIn = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit,  formState: { errors } } = useForm();
     const { signInUser} = useContext(AuthContext);
     const [passwordEye, setPasswordEye] = useState(false);
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const SignIn = () => {
         signInUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+              
                 Swal.fire({
                     title: 'User Login Successful.',
                     showClass: {

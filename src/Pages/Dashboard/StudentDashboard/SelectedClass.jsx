@@ -120,7 +120,7 @@ const SelectedClass = () => {
                   <td> {item.quantity}</td>
                   <td> {item.price}</td>
                   <td>
-                    <Link className='btn btn-square  btn-success btn-sm ' to={`/product-detail/${item._id}`}>
+                    <Link className='btn btn-square  btn-success btn-sm ' to={`/dashboard/payment-class/${item._id}`}>
                       <FaCcAmazonPay />
                     </Link>
                   </td>

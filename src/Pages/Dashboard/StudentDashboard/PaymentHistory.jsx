@@ -1,23 +1,26 @@
-
+import React, { useContext } from 'react'
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import useAxiosService from "../../../hooks/useAxiosService";
+import moment from 'moment/moment';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 
-const EnrolledClass = () => {
-  const [axiosService] = useAxiosService();
-
+const PaymentHistory = () => {
+    const [axiosService] = useAxiosService();
+    const { userInfo } = useContext(AuthContext);
   const { data: selectedClass = [] } = useQuery(['selectedClass'], async () => {
-    const res = await axiosService.get('/enrollClasses')
+    const res = await axiosService.get(`/student/paymentHistory?email=${userInfo?.email}`)
     return res.data;
 
   })
+ 
   return (
     <div className='card shadow-xl bg-base-100'>
       <Helmet>
-        <title>AM Drawing School | Enrolled Class</title>
+        <title>AM Drawing School | Payment History</title>
       </Helmet>
-      <h2 className='text-center text-3xl mt-8'> My Enrolled Class List</h2>
+      <h2 className='text-center text-3xl mt-8'> My Payment History List</h2>
 
       <div className="card-body">
         <div className="overflow-x-auto w-full">
@@ -36,6 +39,7 @@ const EnrolledClass = () => {
                 <th>Instructor Email</th>
                 <th>Available Seats</th>
                 <th>Price</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
@@ -62,6 +66,7 @@ const EnrolledClass = () => {
                   <td> {item?.instructorEmail}</td>
                   <td> {item?.quantity}</td>
                   <td> {item?.price}</td>
+                  <td>{moment(item?.date).format("'MMMM Do YYYY, h:mm:ss a'")}</td>
                 </tr>
               ))}
 
@@ -74,4 +79,4 @@ const EnrolledClass = () => {
   )
 }
 
-export default EnrolledClass
+export default PaymentHistory

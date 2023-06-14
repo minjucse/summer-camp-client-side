@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import Container from '../../../Components/Container'
+import { useQuery } from "@tanstack/react-query";
+import useAxiosService from "../../../hooks/useAxiosService";
 import SectionTitle from '../../../Components/SectionTitle'
-import service from '../../../hooks/useBaseServices';
+import Container from '../../../Components/Container'
 
 const PopularInstructors = () => {
-  const [popularInstructors, setPopularInstructors] = useState([]);
+  const [axiosService] = useAxiosService();
 
-  useEffect(() => {
-    service.getAll("all-users").then(res => {
-      setPopularInstructors(res.data);
-    })
-      .catch(err => {
-        console.log(err);
-      })
-  }, []);
+  const { data: popularInstructors = [] } = useQuery(['popularInstructors'], async () => {
+    const res = await axiosService.get('/topInstructor')
+    return res.data;
+  })
   return (
     <div>
       <SectionTitle subHeading="" heading="Popular Instructors" ></SectionTitle>

@@ -20,6 +20,8 @@ import InstructorsDashboard from '../Pages/Dashboard/InstructorsDashboard/Instru
 import ClassAdd from '../Pages/Dashboard/InstructorsDashboard/InstructorClass/Upsert';
 import ClassLists from '../Pages/Dashboard/InstructorsDashboard/InstructorClass/List';
 import InstructorRoute from './InstructorRoute';
+import PaymentClass from '../Pages/Dashboard/StudentDashboard/Payment/PaymentClass';
+import PaymentHistory from '../Pages/Dashboard/StudentDashboard/PaymentHistory';
 
 export const Routes = createBrowserRouter([
     {
@@ -92,7 +94,14 @@ export const Routes = createBrowserRouter([
           path: 'enrolled-class',
           element: <PrivateRoute><EnrolledClass/></PrivateRoute>
         },
-  
+        {
+          path: 'payment-class/:id',
+          element: <PrivateRoute><PaymentClass/></PrivateRoute>,
+        },
+        {
+          path:"/dashboard/paymenthistory",
+          element:<PrivateRoute><PaymentHistory></PaymentHistory></PrivateRoute>
+        },
       ]
     },
   

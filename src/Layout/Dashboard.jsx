@@ -33,6 +33,7 @@ const Dashboard = () => {
                                <li><Link to='/dashboard/student-home'>Dash board</Link></li>
                                <li><Link to='/dashboard/selected-class'>My Selected Class</Link></li>
                                <li><Link to='/dashboard/enrolled-class'>My Enrolled Class</Link></li>
+                               <li><Link to='/dashboard/paymenthistory'>Payment History</Link></li>
                             </>
                     }
 
