@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosService from "../../../hooks/useAxiosService";
 import SectionTitle from '../../../Components/SectionTitle'
 import Container from '../../../Components/Container'
+import { useSpring,animated } from "@react-spring/web";
 
 const PopularInstructors = () => {
   const [axiosService] = useAxiosService();
@@ -10,8 +11,15 @@ const PopularInstructors = () => {
     const res = await axiosService.get('/topInstructor')
     return res.data;
   })
+  const styles = useSpring({
+    opacity: 1,
+    transform: 'translateY(0)',
+    from: { opacity: 0, transform: 'translateY(-100px)' },
+    // You can customize the animation properties here, like duration and easing
+  });
+
   return (
-    <div>
+    <animated.div style={{...styles}}>
       <SectionTitle subHeading="" heading="Popular Instructors" ></SectionTitle>
       <div className='mb-12 mt-20'>
         <Container>
@@ -39,7 +47,7 @@ const PopularInstructors = () => {
         </Container>
       </div>
 
-    </div>
+    </animated.div>
   )
 }
 

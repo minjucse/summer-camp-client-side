@@ -3,7 +3,7 @@ import Container from '../../../Components/Container'
 import SectionTitle from '../../../Components/SectionTitle'
 import { useQuery } from "@tanstack/react-query";
 import useAxiosService from "../../../hooks/useAxiosService";
-
+import { useSpring, animated } from '@react-spring/web';
 const PopularClasses = () => {
   const [axiosService] = useAxiosService();
 
@@ -11,9 +11,13 @@ const PopularClasses = () => {
     const res = await axiosService.get('/topclasses')
     return res.data;
   })
+  const springs = useSpring({
+    from: { y: 100 },
+    to: { y: 0 },
+  })
  
   return (
-    <div>
+    <animated.div style={{reverse:true,...springs}}>
       <SectionTitle subHeading="" heading="Popular Classes" ></SectionTitle>
       <div className='mb-12 mt-20'>
         <Container>
@@ -41,7 +45,7 @@ const PopularClasses = () => {
         </Container>
       </div>
 
-    </div>
+    </animated.div>
   )
 }
 
